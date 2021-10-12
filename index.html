@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather Dashboard</title>
+  </head>
+
+  <body>
+    
+    <nav class="navbar navbar-expand-md navbar-dark bg-gradient">
+        <div class="container-fluid justify-content-center">
+           <span class="navbar-brand mb-0 h1">Weather Dashboard</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 city-search">
+            <div class="row my-2">
+              <h1>Search for a City:</h1>
+            </div>
+            <div class="row m-2">
+              <input type="text" name="city-search-input" class="form-control input-lg" placeholder="San Diego">
+            </div>
+            <div class="row m-2">
+              <button class="btn btn-primary" type="button" name="city-search-button">Search</button>
+            </div>
+            <hr/>
+            <div class="row m-2">
+                <div class="card text-center">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">Previous Search #1</li>
+                      <li class="list-group-item">Previous Search #2</li>
+                      <li class="list-group-item">Previous Search #3</li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-6">
+              <div class="row m-2">
+                  <div class="card">
+                     <div class="card-body">
+                         <h1 class="card-title">Chicago</h1>
+                         <p class="card-text">Temp:</p>
+                         <p class="card-text">Wind:</p>
+                         <p class="card-text">Humidity:</p>
+                         <p class="card-text">UV Index:</p>
+                     </div>
+                  </div>
+              </div>
+              <div class="row my-2">
+                <h3>5 Day Forecast:</h3>
+              </div>
+              <div class="row m-2">
+                
+              </div>
+          </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
