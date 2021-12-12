@@ -53,21 +53,24 @@
                 <div class="row">
                     <div id="current-weather" class="card mt-4">
                         <div class="card-body">
-                            <h1 class="card-title">San Diego</h1>
-                            <p class="card-text">Temp:</p>
-                            <p class="card-text">Wind:</p>
-                            <p class="card-text">Humidity:</p>
-                            <p class="card-text">UV Index:</p>
+                            <h1 id="city-name" class="card-title">San Diego</h1>
+                            <h5 class="card-text">Temp: <span id="current-temp"></span></h5>
+                            <h5 class="card-text">Wind: <span id="current-wind-speed"></span></h5>
+                            <h5 class="card-text">Humidity: <span id="current-humidity"></span></h5>
+                            <h5 class="card-text">UV Index: <span id="current-uv-index"></span></h5>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div id="5-day-forecast" class="card mt-4">
                         <div class="card-body">
-                            <h3 class="card-title">5 Day Forecast:</h3>
+                            <h3 class="card-title">5 Day Forecast</h3>
                             <div class="row">
                                 <div class="card col-sm m-2">
-                                    Day 1
+                                    <p><span id="daily-date-1">01/01/2021</span></p>
+                                    <p>Temp:<span id="daily-temp-1">90°</span></p>
+                                    <p>Wind: <span id="daily-wind-1">25mph</span></p>
+                                    <p>Humidity: <span id="daily-humidity-1">25%</span></p>
                                 </div>
                                 <div class="card col-sm m-2">
                                     Day 2
