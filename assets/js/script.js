@@ -14,11 +14,11 @@ let previousSuccessfulSearches = [];
 let currentWeatherReport={};
 
 // function to add city to previous search list and update DOM
-function addToPreviousSearchList(cityName) {
+function addToPreviousSearchList(city) {
 
     // add city provided as argument to golbal array of previous searches
-    if (!previousSuccessfulSearches.includes(cityName)) {
-        previousSuccessfulSearches.push(cityName);
+    if (!previousSuccessfulSearches.includes(city)) {
+        previousSuccessfulSearches.push(city);
     }
 
     // blank out previous search list
@@ -28,7 +28,8 @@ function addToPreviousSearchList(cityName) {
     for (let i = 0; i < previousSuccessfulSearches.length; i++) {
 
         let listItemAnchorEl = document.createElement("a");
-        listItemAnchorEl.onclick = `"getWeatherFor("${cityName}");"`; // create anchor element to contain li element
+        listItemAnchorEl.setAttribute('onclick', `getCurrentWeather("${previousSuccessfulSearches[i]}");`); // create anchor element to contain li element
+        listItemAnchorEl.href = "#";
         let listItemEl = document.createElement("li"); // create li element to append to anchor element
         listItemEl.classList.add("list-group-item"); // add class of list-group-item to li element
         listItemEl.innerHTML = previousSuccessfulSearches[i]; // set innerHTML of li element to previous search city
