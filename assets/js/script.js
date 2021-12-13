@@ -161,7 +161,7 @@ function getCurrentWeather(cityName) {
                             </div>
                             <div class="col-6 text-center">
                                 <div class="card-body">
-                                    <img src=${iconLink(weatherReport.currentWeatherIcon, 4)}>
+                                    <img class="current-weather-icon" src=${iconLink(weatherReport.currentWeatherIcon, 4)}>
                                     <h5 id="current-weather-description" class="card-text">${weatherReport.currentWeatherDescription}</h5>
                                 </div>
                             </div>
@@ -185,40 +185,45 @@ function getCurrentWeather(cityName) {
                                 <div class="card col-sm m-2 text-center forecast-card-text">
                                     <p>${day1.day}</p>
                                     <p><span id="daily-date-1">${day1.date}</span></p>
-                                    <img src=${iconLink(day1.icon, 4)}>
-                                    <h3 id="daily-temp-1">${day1.temp} °F</h3>
+                                    <img class="five-day-icon" src=${iconLink(day1.icon, 4)}>
+                                    <p>${day1.description}</p>
+                                    <h3 id="daily-temp-1" class="five-day-temp">${day1.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day1.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day1.humidity}%</span></p>
                                 </div>
                                 <div class="card col-sm m-2 text-center forecast-card-text">
                                     <p>${day2.day}</p>
                                     <p><span id="daily-date-1">${day2.date}</span></p>
-                                    <img src=${iconLink(day2.icon, 4)}>
-                                    <h3 id="daily-temp-1">${day2.temp} °F</h3>
+                                    <img class="five-day-icon" src=${iconLink(day2.icon, 4)}>
+                                    <p>${day2.description}</p>
+                                    <h3 id="daily-temp-1" class="five-day-temp">${day2.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day2.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day2.humidity}%</span></p>
                                 </div>
                                 <div class="card col-sm m-2 text-center forecast-card-text">
                                     <p>${day3.day}</p>
                                     <p><span id="daily-date-1">${day3.date}</span></p>
-                                    <img src=${iconLink(day3.icon, 4)}>
-                                    <h3 id="daily-temp-1">${day3.temp} °F</h3>
+                                    <img class="five-day-icon" src=${iconLink(day3.icon, 4)}>
+                                    <p>${day3.description}</p>
+                                    <h3 id="daily-temp-1" class="five-day-temp">${day3.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day3.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day3.humidity}%</span></p>
                                 </div>
                                 <div class="card col-sm m-2 text-center forecast-card-text">
                                     <p>${day4.day}</p>
                                     <p><span id="daily-date-1">${day4.date}</span></p>
-                                    <img src=${iconLink(day4.icon, 4)}>
-                                    <h3 id="daily-temp-1">${day4.temp} °F</h3>
+                                    <img class="five-day-icon" src=${iconLink(day4.icon, 4)}>
+                                    <p>${day4.description}</p>
+                                    <h3 id="daily-temp-1" class="five-day-temp">${day4.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day4.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day4.humidity}%</span></p>
                                 </div>
                                 <div class="card col-sm m-2 text-center forecast-card-text">
                                     <p>${day5.day}</p>
                                     <p><span id="daily-date-1">${day5.date}</span></p>
-                                    <img src=${iconLink(day5.icon, 4)}>
-                                    <h3 id="daily-temp-1">${day5.temp} °F</h3>
+                                    <img class="five-day-icon" src=${iconLink(day5.icon, 4)}>
+                                    <p>${day5.description}</p>
+                                    <h3 id="daily-temp-1" class="five-day-temp">${day5.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day5.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day5.humidity}%</span></p>
                                 </div>
