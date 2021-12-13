@@ -4,7 +4,7 @@
 }
 
 .forecast-card-text p {
-  margin-bottom: 3px !important;
+  margin-bottom: 0px !important;
 }
 
 .current-weather-icon {
@@ -13,9 +13,23 @@
 }
 
 .five-day-icon {
+  margin-top: -15px;
   margin-bottom: -25px;
 }
 
 .five-day-temp {
   margin-top: 5px;
+}
+
+.rounded-corners {
+  border-radius: 15px;
+}
+
+img {
+  -webkit-filter: drop-shadow(5px 5px 5px #222);
+  filter: drop-shadow(5px 5px 5px #222);
+}
+
+.current-date {
+  margin-top: -7px;
 }

@@ -65,6 +65,8 @@ function getCurrentWeather(cityName) {
 
             // set weatherReport attributes based on response data
             weatherReport.cityName = data1.name; // set city name
+            // weatherReport.currentDay = new Date(data1.dt * 1000).toLocaleDateString("en-US", { weekday: 'long' });
+            weatherReport.currentDate = new Date(data1.dt * 1000).toLocaleDateString("en-US", { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }); // set country
             weatherReport.currentTemp = Math.round(data1.main.temp); // set current temp
             weatherReport.currentWindSpeed = Math.round(data1.wind.speed); // set wind speed
             weatherReport.currentHumidity = Math.round(data1.main.humidity); // set humidity
@@ -91,17 +93,8 @@ function getCurrentWeather(cityName) {
                     // set attributes of weather report object based on relevant data from data2
                     weatherReport.dailyForecast = [
                         {
-                            day: new Date(data2.daily[0].dt * 1000).toLocaleDateString('en-US', { weekday: 'long' }),
-                            date: new Date(data2.daily[0].dt * 1000).toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' }),
-                            temp: Math.round(data2.daily[0].temp.day),
-                            wind: Math.round(data2.daily[0].wind_speed),
-                            humidity: Math.round(data2.daily[0].humidity),
-                            description: data2.daily[0].weather[0].main,
-                            icon: data2.daily[0].weather[0].icon
-                        },
-                        {
                             day: new Date(data2.daily[1].dt * 1000).toLocaleDateString('en-US', { weekday: 'long' }),
-                            date: new Date(data2.daily[1].dt * 1000).toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' }), 
+                            date: new Date(data2.daily[1].dt * 1000).toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' }),
                             temp: Math.round(data2.daily[1].temp.day),
                             wind: Math.round(data2.daily[1].wind_speed),
                             humidity: Math.round(data2.daily[1].humidity),
@@ -119,7 +112,7 @@ function getCurrentWeather(cityName) {
                         },
                         {
                             day: new Date(data2.daily[3].dt * 1000).toLocaleDateString('en-US', { weekday: 'long' }),
-                            date: new Date(data2.daily[3].dt * 1000).toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' }),
+                            date: new Date(data2.daily[3].dt * 1000).toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' }), 
                             temp: Math.round(data2.daily[3].temp.day),
                             wind: Math.round(data2.daily[3].wind_speed),
                             humidity: Math.round(data2.daily[3].humidity),
@@ -134,6 +127,15 @@ function getCurrentWeather(cityName) {
                             humidity: Math.round(data2.daily[4].humidity),
                             description: data2.daily[4].weather[0].main,
                             icon: data2.daily[4].weather[0].icon
+                        },
+                        {
+                            day: new Date(data2.daily[5].dt * 1000).toLocaleDateString('en-US', { weekday: 'long' }),
+                            date: new Date(data2.daily[5].dt * 1000).toLocaleDateString("en-US", { month: 'short', day: 'numeric', year: 'numeric' }),
+                            temp: Math.round(data2.daily[5].temp.day),
+                            wind: Math.round(data2.daily[5].wind_speed),
+                            humidity: Math.round(data2.daily[5].humidity),
+                            description: data2.daily[5].weather[0].main,
+                            icon: data2.daily[5].weather[0].icon
                         }
                     ]
 
@@ -148,12 +150,14 @@ function getCurrentWeather(cityName) {
                     console.log(currentWeatherObj.cityName);
                     // create html templte to use for current weather card
                     let currentWeatherCardEl = `
-                    <div class="card mt-4">
+                    <div class="card mt-4 shadow">
                         <div class="row">
                             <div class="col-6 text-center">
                                 <div class="card-body">
                                    <h1 id="city-name" class="card-title">${currentWeatherObj.cityName}</h1>
-                                   <h1 id="current-temp" class="card-text">${currentWeatherObj.currentTemp} °F</h1>
+
+                                  
+                                   <p id="current-date" class="current-date card-text">${currentWeatherObj.currentDate}</p>
                                    <h5 class="card-text">Wind: <span id="current-wind-speed">${currentWeatherObj.currentWindSpeed} mph</span></h5>
                                    <h5 class="card-text">Humidity: <span id="current-humidity">${currentWeatherObj.currentHumidity}%</span></h5>
                                    <h5 class="card-text">UV Index: <span id="current-uv-index" class="badge bg-success">${currentWeatherObj.currentUvIndex}</span></h5>
@@ -163,6 +167,7 @@ function getCurrentWeather(cityName) {
                                 <div class="card-body">
                                     <img class="current-weather-icon" src=${iconLink(weatherReport.currentWeatherIcon, 4)}>
                                     <h5 id="current-weather-description" class="card-text">${weatherReport.currentWeatherDescription}</h5>
+                                    <h1 id="current-temp" class="card-text">${currentWeatherObj.currentTemp} °F</h1>
                                 </div>
                             </div>
                         </div>
@@ -178,11 +183,11 @@ function getCurrentWeather(cityName) {
                 
                     // create html template to use for five day forecast card
                     let fiveDayForcastCardEl = `
-                    <div class="card mt-4">
+                    <div class="card mt-4 shadow">
                         <div class="card-body">
                             <h3 class="card-title">5 Day Forecast</h3>
                             <div class="row">
-                                <div class="card col-sm m-2 text-center forecast-card-text">
+                                <div class="card col-sm m-2 text-center forecast-card-text bg-primary text-light shadow-lg rounded-corners py-1">
                                     <p>${day1.day}</p>
                                     <p><span id="daily-date-1">${day1.date}</span></p>
                                     <img class="five-day-icon" src=${iconLink(day1.icon, 4)}>
@@ -191,7 +196,7 @@ function getCurrentWeather(cityName) {
                                     <p>Wind: <span id="daily-wind-1">${day1.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day1.humidity}%</span></p>
                                 </div>
-                                <div class="card col-sm m-2 text-center forecast-card-text">
+                                <div class="card col-sm m-2 text-center forecast-card-text bg-primary text-light shadow-lg rounded-corners py-1">
                                     <p>${day2.day}</p>
                                     <p><span id="daily-date-1">${day2.date}</span></p>
                                     <img class="five-day-icon" src=${iconLink(day2.icon, 4)}>
@@ -200,7 +205,7 @@ function getCurrentWeather(cityName) {
                                     <p>Wind: <span id="daily-wind-1">${day2.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day2.humidity}%</span></p>
                                 </div>
-                                <div class="card col-sm m-2 text-center forecast-card-text">
+                                <div class="card col-sm m-2 text-center forecast-card-text bg-primary text-light shadow-lg rounded-corners py-1">
                                     <p>${day3.day}</p>
                                     <p><span id="daily-date-1">${day3.date}</span></p>
                                     <img class="five-day-icon" src=${iconLink(day3.icon, 4)}>
@@ -209,7 +214,7 @@ function getCurrentWeather(cityName) {
                                     <p>Wind: <span id="daily-wind-1">${day3.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day3.humidity}%</span></p>
                                 </div>
-                                <div class="card col-sm m-2 text-center forecast-card-text">
+                                <div class="card col-sm m-2 text-center forecast-card-text bg-primary text-light shadow-lg rounded-corners py-1">
                                     <p>${day4.day}</p>
                                     <p><span id="daily-date-1">${day4.date}</span></p>
                                     <img class="five-day-icon" src=${iconLink(day4.icon, 4)}>
@@ -218,7 +223,7 @@ function getCurrentWeather(cityName) {
                                     <p>Wind: <span id="daily-wind-1">${day4.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day4.humidity}%</span></p>
                                 </div>
-                                <div class="card col-sm m-2 text-center forecast-card-text">
+                                <div class="card col-sm m-2 text-center forecast-card-text bg-primary text-light shadow-lg rounded-corners py-1">
                                     <p>${day5.day}</p>
                                     <p><span id="daily-date-1">${day5.date}</span></p>
                                     <img class="five-day-icon" src=${iconLink(day5.icon, 4)}>
