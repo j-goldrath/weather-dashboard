@@ -7,6 +7,7 @@ let cityToSearchButtonEl = document.querySelector("button[name='city-search-butt
 let previousSearchListEl = document.getElementById("previous-search-list"); // target previous search list element by name
 let currentWeatherRowEl = document.getElementById("current-weather");
 let fiveDayForecastRowEl = document.getElementById("five-day-forecast");
+let previousSearchesWrapperEl = document.getElementById("previous-searches-wrapper");
 
 // create empty global array to hold previous searches
 let previousSuccessfulSearches = [];
@@ -15,6 +16,11 @@ let currentWeatherReport={};
 
 // function to add city to previous search list and update DOM
 function addToPreviousSearchList(city) {
+
+    // if this is the first time the parent function is called then the array will be empty, if so we need to remove class of d-none to display previous searches list
+    if (previousSuccessfulSearches.length === 0) {
+        previousSearchesWrapperEl.classList.remove("d-none");
+    }
 
     // add city provided as argument to golbal array of previous searches
     if (!previousSuccessfulSearches.includes(city)) {
@@ -38,6 +44,10 @@ function addToPreviousSearchList(city) {
     }
 }
 
+function iconLink(icon, size) {
+    return `http://openweathermap.org/img/wn/${icon}@${size}x.png`
+}
+
 // function to retrive weather data for city entered in search input
 function getCurrentWeather(cityName) {
 
@@ -55,9 +65,9 @@ function getCurrentWeather(cityName) {
 
             // set weatherReport attributes based on response data
             weatherReport.cityName = data1.name; // set city name
-            weatherReport.currentTemp = data1.main.temp; // set current temp
-            weatherReport.currentWindSpeed = data1.wind.speed; // set wind speed
-            weatherReport.currentHumidity = data1.main.humidity; // set humidity
+            weatherReport.currentTemp = Math.round(data1.main.temp); // set current temp
+            weatherReport.currentWindSpeed = Math.round(data1.wind.speed); // set wind speed
+            weatherReport.currentHumidity = Math.round(data1.main.humidity); // set humidity
             weatherReport.currentWeatherDescription = data1.weather[0].main; // set weather description
             weatherReport.currentWeatherIcon = data1.weather[0].icon; // set weather icon;
 
@@ -82,41 +92,41 @@ function getCurrentWeather(cityName) {
                     weatherReport.dailyForecast = [
                         {
                             date: new Date(data2.daily[0].dt * 1000).toLocaleDateString("en-US"),
-                            temp: data2.daily[0].temp.day,
-                            wind: data2.daily[0].wind_speed,
-                            humidity: data2.daily[0].humidity,
+                            temp: Math.round(data2.daily[0].temp.day),
+                            wind: Math.round(data2.daily[0].wind_speed),
+                            humidity: Math.round(data2.daily[0].humidity),
                             description: data2.daily[0].weather[0].main,
                             icon: data2.daily[0].weather[0].icon
                         },
                         {
                             date: new Date(data2.daily[1].dt * 1000).toLocaleDateString("en-US"),
-                            temp: data2.daily[1].temp.day,
-                            wind: data2.daily[1].wind_speed,
-                            humidity: data2.daily[1].humidity,
+                            temp: Math.round(data2.daily[1].temp.day),
+                            wind: Math.round(data2.daily[1].wind_speed),
+                            humidity: Math.round(data2.daily[1].humidity),
                             description: data2.daily[1].weather[0].main,
                             icon: data2.daily[1].weather[0].icon
                         },
                         {
                             date: new Date(data2.daily[2].dt * 1000).toLocaleDateString("en-US"),
-                            temp: data2.daily[2].temp.day,
-                            wind: data2.daily[2].wind_speed,
-                            humidity: data2.daily[2].humidity,
+                            temp: Math.round(data2.daily[2].temp.day),
+                            wind: Math.round(data2.daily[2].wind_speed),
+                            humidity: Math.round(data2.daily[2].humidity),
                             description: data2.daily[2].weather[0].main,
                             icon: data2.daily[2].weather[0].icon
                         },
                         {
                             date: new Date(data2.daily[3].dt * 1000).toLocaleDateString("en-US"),
-                            temp: data2.daily[3].temp.day,
-                            wind: data2.daily[3].wind_speed,
-                            humidity: data2.daily[3].humidity,
+                            temp: Math.round(data2.daily[3].temp.day),
+                            wind: Math.round(data2.daily[3].wind_speed),
+                            humidity: Math.round(data2.daily[3].humidity),
                             description: data2.daily[3].weather[0].main,
                             icon: data2.daily[3].weather[0].icon
                         },
                         {
                             date: new Date(data2.daily[4].dt * 1000).toLocaleDateString("en-US"),
-                            temp: data2.daily[4].temp.day,
-                            wind: data2.daily[4].wind_speed,
-                            humidity: data2.daily[4].humidity,
+                            temp: Math.round(data2.daily[4].temp.day),
+                            wind: Math.round(data2.daily[4].wind_speed),
+                            humidity: Math.round(data2.daily[4].humidity),
                             description: data2.daily[4].weather[0].main,
                             icon: data2.daily[4].weather[0].icon
                         }
@@ -158,30 +168,35 @@ function getCurrentWeather(cityName) {
                             <h3 class="card-title">5 Day Forecast</h3>
                             <div class="row">
                                 <div class="card col-sm m-2">
+                                    <img src=${iconLink(day1.icon, 2)}>
                                     <p><span id="daily-date-1">${day1.date}</span></p>
                                     <p>Temp:<span id="daily-temp-1">${day1.temp} °F</span></p>
                                     <p>Wind: <span id="daily-wind-1">${day1.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day1.humidity}%</span></p>
                                 </div>
                                 <div class="card col-sm m-2">
+                                    <img src=${iconLink(day2.icon, 2)}>
                                     <p><span id="daily-date-1">${day2.date}</span></p>
                                     <p>Temp:<span id="daily-temp-1">${day2.temp} °F</span></p>
                                     <p>Wind: <span id="daily-wind-1">${day2.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day2.humidity}%</span></p>
                                 </div>
                                 <div class="card col-sm m-2">
+                                    <img src=${iconLink(day3.icon, 2)}>
                                     <p><span id="daily-date-1">${day3.date}</span></p>
                                     <p>Temp:<span id="daily-temp-1">${day3.temp} °F</span></p>
                                     <p>Wind: <span id="daily-wind-1">${day3.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day3.humidity}%</span></p>
                                 </div>
                                 <div class="card col-sm m-2">
+                                    <img src=${iconLink(day4.icon, 2)}>
                                     <p><span id="daily-date-1">${day4.date}</span></p>
                                     <p>Temp:<span id="daily-temp-1">${day4.temp} °F</span></p>
                                     <p>Wind: <span id="daily-wind-1">${day4.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day4.humidity}%</span></p>
                                 </div>
                                 <div class="card col-sm m-2">
+                                    <img src=${iconLink(day5.icon, 2)}>
                                     <p><span id="daily-date-1">${day5.date}</span></p>
                                     <p>Temp:<span id="daily-temp-1">${day5.temp} °F</span></p>
                                     <p>Wind: <span id="daily-wind-1">${day5.wind} mph</span></p>
