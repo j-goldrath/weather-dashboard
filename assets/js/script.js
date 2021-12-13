@@ -186,7 +186,7 @@ function getCurrentWeather(cityName) {
                                     <p>${day1.day}</p>
                                     <p><span id="daily-date-1">${day1.date}</span></p>
                                     <img src=${iconLink(day1.icon, 4)}>
-                                    <p>Temp:<span id="daily-temp-1">${day1.temp} °F</span></p>
+                                    <h3 id="daily-temp-1">${day1.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day1.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day1.humidity}%</span></p>
                                 </div>
@@ -194,7 +194,7 @@ function getCurrentWeather(cityName) {
                                     <p>${day2.day}</p>
                                     <p><span id="daily-date-1">${day2.date}</span></p>
                                     <img src=${iconLink(day2.icon, 4)}>
-                                    <p>Temp:<span id="daily-temp-1">${day2.temp} °F</span></p>
+                                    <h3 id="daily-temp-1">${day2.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day2.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day2.humidity}%</span></p>
                                 </div>
@@ -202,7 +202,7 @@ function getCurrentWeather(cityName) {
                                     <p>${day3.day}</p>
                                     <p><span id="daily-date-1">${day3.date}</span></p>
                                     <img src=${iconLink(day3.icon, 4)}>
-                                    <p>Temp:<span id="daily-temp-1">${day3.temp} °F</span></p>
+                                    <h3 id="daily-temp-1">${day3.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day3.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day3.humidity}%</span></p>
                                 </div>
@@ -210,7 +210,7 @@ function getCurrentWeather(cityName) {
                                     <p>${day4.day}</p>
                                     <p><span id="daily-date-1">${day4.date}</span></p>
                                     <img src=${iconLink(day4.icon, 4)}>
-                                    <p>Temp:<span id="daily-temp-1">${day4.temp} °F</span></p>
+                                    <h3 id="daily-temp-1">${day4.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day4.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day4.humidity}%</span></p>
                                 </div>
@@ -218,7 +218,7 @@ function getCurrentWeather(cityName) {
                                     <p>${day5.day}</p>
                                     <p><span id="daily-date-1">${day5.date}</span></p>
                                     <img src=${iconLink(day5.icon, 4)}>
-                                    <p>Temp:<span id="daily-temp-1">${day5.temp} °F</span></p>
+                                    <h3 id="daily-temp-1">${day5.temp} °F</h3>
                                     <p>Wind: <span id="daily-wind-1">${day5.wind} mph</span></p>
                                     <p>Humidity: <span id="daily-humidity-1">${day5.humidity}%</span></p>
                                 </div>
