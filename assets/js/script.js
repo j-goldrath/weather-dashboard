@@ -11,6 +11,8 @@ let fiveDayForecastRowEl = document.getElementById("five-day-forecast");
 // create empty global array to hold previous searches
 let previousSuccessfulSearches = [];
 
+let currentWeatherReport={};
+
 // function to add city to previous search list and update DOM
 function addToPreviousSearchList(cityName) {
 
@@ -51,12 +53,12 @@ function getCurrentWeather(cityName) {
         .then(data1 => {
 
             // set weatherReport attributes based on response data
-            weatherReport.city_name = data1.name; // set city name
-            weatherReport.current_temp = data1.main.temp; // set current temp
-            weatherReport.current_wind_speed = data1.wind.speed; // set wind speed
-            weatherReport.current_humidity = data1.main.humidity; // set humidity
-            weatherReport.current_weather_description = data1.weather[0].main; // set weather description
-            weatherReport.current_weather_icon = data1.weather[0].icon; // set weather icon;
+            weatherReport.cityName = data1.name; // set city name
+            weatherReport.currentTemp = data1.main.temp; // set current temp
+            weatherReport.currentWindSpeed = data1.wind.speed; // set wind speed
+            weatherReport.currentHumidity = data1.main.humidity; // set humidity
+            weatherReport.currentWeatherDescription = data1.weather[0].main; // set weather description
+            weatherReport.currentWeatherIcon = data1.weather[0].icon; // set weather icon;
 
             // get latitude and longitude from response to use for next fetch request
             let cityLon = data1.coord.lon; //set city longitude
@@ -73,10 +75,10 @@ function getCurrentWeather(cityName) {
                 .then((data2) => {
 
                     // set current_uv_index attribute based on response data
-                    weatherReport.current_uv_index = data2.current.uvi;
+                    weatherReport.currentUvIndex = data2.current.uvi;
 
                     // set attributes of weather report object based on relevant data from data2
-                    weatherReport.daily_forecast = [
+                    weatherReport.dailyForecast = [
                         {
                             date: new Date(data2.daily[0].dt * 1000).toLocaleDateString("en-US"),
                             temp: data2.daily[0].temp.day,
@@ -120,80 +122,163 @@ function getCurrentWeather(cityName) {
                     ]
 
                     // assuming everything above succeeded, call function to add city to previous search list and update DOM
-                    addToPreviousSearchList(weatherReport.city_name)
+                    addToPreviousSearchList(weatherReport.cityName)
+
+                    let currentWeatherObj = weatherReport;
+
+                    currentWeatherRowEl.innerHTML = ""; // clear current weather element
+                    fiveDayForecastRowEl.innerHTML = ""; // clear five day forecast row element
+                
+                    console.log(currentWeatherObj.cityName);
+                    // create html templte to use for current weather card
+                    let currentWeatherCardEl = `
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h1 id="city-name" class="card-title">${currentWeatherObj.cityName}</h1>
+                            <h5 class="card-text">Temp: <span id="current-temp">${currentWeatherObj.currentTemp}</span></h5>
+                            <h5 class="card-text">Wind: <span id="current-wind-speed">${currentWeatherObj.currentWindSpeed}</span></h5>
+                            <h5 class="card-text">Humidity: <span id="current-humidity">${currentWeatherObj.currentHumidity}</span></h5>
+                            <h5 class="card-text">UV Index: <span id="current-uv-index">${currentWeatherObj.currentUvIndex}</span></h5>
+                        </div>
+                    </div>
+                    `
+                    console.log(currentWeatherObj.dailyForecast['0']);
+                
+                    let day1 = currentWeatherObj.dailyForecast['0'];
+                    let day2 = currentWeatherObj.dailyForecast['1'];
+                    let day3 = currentWeatherObj.dailyForecast['2'];
+                    let day4 = currentWeatherObj.dailyForecast['3'];
+                    let day5 = currentWeatherObj.dailyForecast['4'];
+                
+                    // create html template to use for five day forecast card
+                    let fiveDayForcastCardEl = `
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3 class="card-title">5 Day Forecast</h3>
+                            <div class="row">
+                                <div class="card col-sm m-2">
+                                    <p><span id="daily-date-1">${day1.date}</span></p>
+                                    <p>Temp:<span id="daily-temp-1">${day1.temp} °F</span></p>
+                                    <p>Wind: <span id="daily-wind-1">${day1.wind} mph</span></p>
+                                    <p>Humidity: <span id="daily-humidity-1">${day1.humidity}%</span></p>
+                                </div>
+                                <div class="card col-sm m-2">
+                                    <p><span id="daily-date-1">${day2.date}</span></p>
+                                    <p>Temp:<span id="daily-temp-1">${day2.temp} °F</span></p>
+                                    <p>Wind: <span id="daily-wind-1">${day2.wind} mph</span></p>
+                                    <p>Humidity: <span id="daily-humidity-1">${day2.humidity}%</span></p>
+                                </div>
+                                <div class="card col-sm m-2">
+                                    <p><span id="daily-date-1">${day3.date}</span></p>
+                                    <p>Temp:<span id="daily-temp-1">${day3.temp} °F</span></p>
+                                    <p>Wind: <span id="daily-wind-1">${day3.wind} mph</span></p>
+                                    <p>Humidity: <span id="daily-humidity-1">${day3.humidity}%</span></p>
+                                </div>
+                                <div class="card col-sm m-2">
+                                    <p><span id="daily-date-1">${day4.date}</span></p>
+                                    <p>Temp:<span id="daily-temp-1">${day4.temp} °F</span></p>
+                                    <p>Wind: <span id="daily-wind-1">${day4.wind} mph</span></p>
+                                    <p>Humidity: <span id="daily-humidity-1">${day4.humidity}%</span></p>
+                                </div>
+                                <div class="card col-sm m-2">
+                                    <p><span id="daily-date-1">${day5.date}</span></p>
+                                    <p>Temp:<span id="daily-temp-1">${day5.temp} °F</span></p>
+                                    <p>Wind: <span id="daily-wind-1">${day5.wind} mph</span></p>
+                                    <p>Humidity: <span id="daily-humidity-1">${day5.humidity}%</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                
+                    // set inner html of required portions of dashbord to update weather for new search city
+                    currentWeatherRowEl.innerHTML = currentWeatherCardEl;
+                    fiveDayForecastRowEl.innerHTML = fiveDayForcastCardEl;
+                
+
                 });
+
+
         });
 
-    // return weather report object
-    return weatherReport;
+                    // return weather report object
+                    currentWeatherReport = weatherReport;
+                    return weatherReport;
+
 };
 
+// // function to display weather report data in DOM
+// function displayWeatherReport(currentWeatherObj) {
+//     currentWeatherRowEl.innerHTML = ""; // clear current weather element
+//     fiveDayForecastRowEl.innerHTML = ""; // clear five day forecast row element
 
+//     console.log(currentWeatherObj.cityName);
+//     // create html templte to use for current weather card
+//     let currentWeatherCardEl = `
+//     <div class="card mt-4">
+//         <div class="card-body">
+//             <h1 id="city-name" class="card-title">${currentWeatherObj.cityName}</h1>
+//             <h5 class="card-text">Temp: <span id="current-temp">${currentWeatherObj.currentTemp}</span></h5>
+//             <h5 class="card-text">Wind: <span id="current-wind-speed">${currentWeatherObj.currentWindSpeed}</span></h5>
+//             <h5 class="card-text">Humidity: <span id="current-humidity">${currentWeatherObj.currentHumidity}</span></h5>
+//             <h5 class="card-text">UV Index: <span id="current-uv-index">${currentWeatherObj.currentUvIndex}</span></h5>
+//         </div>
+//     </div>
+//     `
+//     console.log(currentWeatherObj.dailyForecast['0']);
 
-// function to display weather report data in DOM
-function displayWeatherReport(currentWeatherObj) {
-    currentWeatherRowEl.innerHTML = ""; // clear current weather element
-    fiveDayForecastRowEl.innerHTML = ""; // clear five day forecast row element
+//     let day1 = currentWeatherObj.dailyForecast['0'];
+//     let day2 = currentWeatherObj.dailyForecast['1'];
+//     let day3 = currentWeatherObj.dailyForecast['2'];
+//     let day4 = currentWeatherObj.dailyForecast['3'];
+//     let day5 = currentWeatherObj.dailyForecast['4'];
 
-    // create html templte to use for current weather card
-    let currentWeatherCardEl = `
-    <div class="card mt-4">
-        <div class="card-body">
-            <h1 id="city-name" class="card-title">${currentWeatherObj.city_name}</h1>
-            <h5 class="card-text">Temp: <span id="current-temp">${currentWeatherObj.current_temp}</span></h5>
-            <h5 class="card-text">Wind: <span id="current-wind-speed">${currentWeatherObj.current_wind_speed}</span></h5>
-            <h5 class="card-text">Humidity: <span id="current-humidity">${currentWeatherObj.current_humidity}</span></h5>
-            <h5 class="card-text">UV Index: <span id="current-uv-index">${currentWeatherObj.current_uv_index}</span></h5>
-        </div>
-    </div>
-    `
-    
-    // create html template to use for five day forecast card
-    let fiveDayForcastCardEl = `
-    <div class="card mt-4">
-        <div class="card-body">
-            <h3 class="card-title">5 Day Forecast</h3>
-            <div class="row">
-                <div class="card col-sm m-2">
-                    <p><span id="daily-date-1">01/01/2021</span></p>
-                    <p>Temp:<span id="daily-temp-1">90°</span></p>
-                    <p>Wind: <span id="daily-wind-1">25mph</span></p>
-                    <p>Humidity: <span id="daily-humidity-1">25%</span></p>
-                </div>
-                <div class="card col-sm m-2">
-                    <p><span id="daily-date-2">01/01/2021</span></p>
-                    <p>Temp:<span id="daily-temp-2">90°</span></p>
-                    <p>Wind: <span id="daily-wind-2">25mph</span></p>
-                    <p>Humidity: <span id="daily-humidity-2">25%</span></p>
-                </div>
-                <div class="card col-sm m-2">
-                    <p><span id="daily-date-3">01/01/2021</span></p>
-                    <p>Temp:<span id="daily-temp-3">90°</span></p>
-                    <p>Wind: <span id="daily-wind-3">25mph</span></p>
-                    <p>Humidity: <span id="daily-humidity-3">25%</span></p>
-                </div>
-                <div class="card col-sm m-2">
-                    <p><span id="daily-date-4">01/01/2021</span></p>
-                    <p>Temp:<span id="daily-temp-4">90°</span></p>
-                    <p>Wind: <span id="daily-wind-4">25mph</span></p>
-                    <p>Humidity: <span id="daily-humidity-4">25%</span></p>
-                </div>
-                <div class="card col-sm m-2">
-                    <p><span id="daily-date-5">01/01/2021</span></p>
-                    <p>Temp:<span id="daily-temp-5">90°</span></p>
-                    <p>Wind: <span id="daily-wind-5">25mph</span></p>
-                    <p>Humidity: <span id="daily-humidity-5">25%</span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    `
+//     // create html template to use for five day forecast card
+//     let fiveDayForcastCardEl = `
+//     <div class="card mt-4">
+//         <div class="card-body">
+//             <h3 class="card-title">5 Day Forecast</h3>
+//             <div class="row">
+//                 <div class="card col-sm m-2">
+//                     <p><span id="daily-date-1">${day1.date}</span></p>
+//                     <p>Temp:<span id="daily-temp-1">${day1.temp} °F</span></p>
+//                     <p>Wind: <span id="daily-wind-1">${day1.wind} mph</span></p>
+//                     <p>Humidity: <span id="daily-humidity-1">${day1.humidity}%</span></p>
+//                 </div>
+//                 <div class="card col-sm m-2">
+//                     <p><span id="daily-date-1">${day2.date}</span></p>
+//                     <p>Temp:<span id="daily-temp-1">${day2.temp} °F</span></p>
+//                     <p>Wind: <span id="daily-wind-1">${day2.wind} mph</span></p>
+//                     <p>Humidity: <span id="daily-humidity-1">${day2.humidity}%</span></p>
+//                 </div>
+//                 <div class="card col-sm m-2">
+//                     <p><span id="daily-date-1">${day3.date}</span></p>
+//                     <p>Temp:<span id="daily-temp-1">${day3.temp} °F</span></p>
+//                     <p>Wind: <span id="daily-wind-1">${day3.wind} mph</span></p>
+//                     <p>Humidity: <span id="daily-humidity-1">${day3.humidity}%</span></p>
+//                 </div>
+//                 <div class="card col-sm m-2">
+//                     <p><span id="daily-date-1">${day4.date}</span></p>
+//                     <p>Temp:<span id="daily-temp-1">${day4.temp} °F</span></p>
+//                     <p>Wind: <span id="daily-wind-1">${day4.wind} mph</span></p>
+//                     <p>Humidity: <span id="daily-humidity-1">${day4.humidity}%</span></p>
+//                 </div>
+//                 <div class="card col-sm m-2">
+//                     <p><span id="daily-date-1">${day5.date}</span></p>
+//                     <p>Temp:<span id="daily-temp-1">${day5.temp} °F</span></p>
+//                     <p>Wind: <span id="daily-wind-1">${day5.wind} mph</span></p>
+//                     <p>Humidity: <span id="daily-humidity-1">${day5.humidity}%</span></p>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+//     `
 
-    // set inner html of required portions of dashbord to update weather for new search city
-    currentWeatherRowEl.innerHTML = currentWeatherCardEl;
-    fiveDayForecastRowEl.innerHTML = fiveDayForcastCardEl;
+//     // set inner html of required portions of dashbord to update weather for new search city
+//     currentWeatherRowEl.innerHTML = currentWeatherCardEl;
+//     fiveDayForecastRowEl.innerHTML = fiveDayForcastCardEl;
 
-}
+// }
 
 // Add event listener for when city search button is clicked
 cityToSearchButtonEl.addEventListener("click", async function () {
@@ -206,5 +291,6 @@ cityToSearchButtonEl.addEventListener("click", async function () {
 
     let currentWeather = await getCurrentWeather(cityToSearch);
     console.log(currentWeather);
-    displayWeatherReport(currentWeather);
+    // console.log(currentWeather.dailyForecast[0]);
+    // displayWeatherReport(currentWeather);
 });
