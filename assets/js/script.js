@@ -185,7 +185,7 @@ function getCurrentWeather(cityName) {
                     let fiveDayForcastCardEl = `
                     <div class="card mt-4 shadow">
                         <div class="card-body">
-                            <h3 class="card-title text-primary">5 Day Forecast</h3>
+                            <h3 class="card-title">5 Day Forecast</h3>
                             <div class="row">
                                 <div class="card col-sm m-2 text-center forecast-card-text bg-primary text-light shadow-lg rounded-corners py-1">
                                     <p>${day1.day}</p>
