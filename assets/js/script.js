@@ -90,6 +90,18 @@ function getCurrentWeather(cityName) {
                     // set current_uv_index attribute based on response data
                     weatherReport.currentUvIndex = data2.current.uvi;
 
+                    console.log(weatherReport.currentUvIndex);
+                    // choose color for uv badge based on ranges
+
+                    let uvColorClass;
+                    if (weatherReport.currentUvIndex >= 6) {
+                        uvColorClass = "bg-danger";
+                    } else if (weatherReport.currentUvIndex > 2 && weatherReport.currentUvIndex < 6) {
+                        uvColorClass = "bg-warning";
+                    } else {
+                        uvColorClass = "bg-success";
+                    }
+
                     // set attributes of weather report object based on relevant data from data2
                     weatherReport.dailyForecast = [
                         {
@@ -160,7 +172,7 @@ function getCurrentWeather(cityName) {
                                    <p id="current-date" class="current-date card-text">${currentWeatherObj.currentDate}</p>
                                    <h5 class="card-text">Wind: <span id="current-wind-speed">${currentWeatherObj.currentWindSpeed} mph</span></h5>
                                    <h5 class="card-text">Humidity: <span id="current-humidity">${currentWeatherObj.currentHumidity}%</span></h5>
-                                   <h5 class="card-text">UV Index: <span id="current-uv-index" class="badge bg-success">${currentWeatherObj.currentUvIndex}</span></h5>
+                                   <h5 class="card-text">UV Index: <span id="current-uv-index" class="badge ${uvColorClass}">${currentWeatherObj.currentUvIndex}</span></h5>
                                 </div>
                             </div>
                             <div class="col-6 text-center">
